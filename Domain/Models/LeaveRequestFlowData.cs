@@ -12,7 +12,7 @@ namespace Domain.Models
         /// Gets or sets the unique identifier of the employee requesting leave.
         /// This identifier is used to track the leave request back to the specific employee within the system.
         /// </summary>
-        public string EmployeeId { get; set; }
+        public Guid EmployeeId { get; set; }
 
         /// <summary>
         /// Gets or sets the number of leave days requested by the employee.
@@ -30,7 +30,7 @@ namespace Domain.Models
         /// Gets or sets any additional comments or remarks related to the leave request.
         /// This property can be used to store notes or feedback from the approver or other relevant information.
         /// </summary>
-        public string Comments { get; set; }
+        public string? Comments { get; set; }
 
         // Additional properties can be added here to capture more workflow-specific data,
         // such as the date of the request, the approver's name, or the reason for the leave.

@@ -52,19 +52,109 @@ The project is structured as follows:
 
    ```bash
    git clone [Your_Repository_URL]
+   ```
 
-2. **Navigate to the Project Directory
+2. **Navigate to the Project Directory:**
 
    ```bash
    cd [Project_Directory]
    ```
 
-3. **Restore the Dependencies**
+3. **Restore the Dependencies:**
+
    ```bash
    dotnet restore
    ```
 
-4. **Run the Application**
+4. **Run the Application:**
+
    ```bash
    dotnet run
    ```
+
+## Workflow Details
+
+### Leave Request Workflow
+
+The `LeaveRequestWorkflow` consists of several steps that simulate the leave request process:
+
+1. **SendLeaveRequest**: Sends the leave request.
+2. **WaitForApprovalStep**: Pauses the workflow to wait for an approval decision.
+3. **ApprovalDecisionStep**: Determines if the leave is approved or rejected.
+4. **NotifyEmployeeStep**: Notifies the employee about the decision.
+5. **UpdateLeaveRecordsStep**: Updates the leave records if the request is approved.
+6. **FinalizeWorkflowStep**: Finalizes the workflow.
+
+### Program.cs Configuration
+
+In the `Program.cs`, WorkflowCore is configured and the workflow is registered with the workflow host. An API endpoint is also exposed to start the workflow.
+
+```csharp
+// Register WorkflowCore services
+builder.Services.AddWorkflow();
+
+// Build the service provider to retrieve registered services
+var serviceProvider = app.Services;
+
+// Retrieve the workflow host from the service provider
+var host = serviceProvider.GetRequiredService<IWorkflowHost>();
+
+// Register the LeaveRequestWorkflow with the workflow host
+host.RegisterWorkflow<LeaveRequestWorkflow, LeaveRequestFlowData>();
+
+// Start the workflow host
+host.Start();
+
+// Endpoint to start the leave request workflow
+app.MapPost("/start-leave-request", async (LeaveRequestFlowData data) =>
+{
+    var workflowId = await host.StartWorkflow("leave-request-workflow", 1, data);
+    return Results.Ok(new { WorkflowId = workflowId });
+});
+
+app.Run();
+```
+
+## Endpoints
+
+### Start Leave Request Workflow
+
+- **POST** `/start-leave-request`
+  
+  Starts the `LeaveRequestWorkflow` with the provided data.
+
+  **Request Body:**
+  ```json
+  {
+      "EmployeeId": "12345",
+      "LeaveDays": 5,
+      "IsApproved": false,
+      "Comments": "Requesting 5 days of leave."
+  }
+  ```
+
+  **Response:**
+  ```json
+  {
+      "WorkflowId": "your-workflow-id"
+  }
+  ```
+
+## Running the Application
+
+1. **Start the Application**:
+   - Run the application using the `dotnet run` command.
+
+2. **Use Swagger UI**:
+   - Navigate to `https://localhost:5001/swagger` to view and test the API using Swagger UI.
+
+3. **Start a Workflow**:
+   - Use a tool like Postman or Swagger UI to send a POST request to `/start-leave-request` with the required data.
+
+## Official Documentation
+
+For more detailed information about WorkflowCore, visit the official documentation: [WorkflowCore Documentation](https://workflow-core.readthedocs.io/en/latest/getting-started/).
+
+## Repository Link
+
+To explore the WorkflowCore repository, visit: [WorkflowCore GitHub Repository](https://github.com/danielgerlag/workflow-core?tab=readme-ov-file).
