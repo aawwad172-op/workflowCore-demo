@@ -149,7 +149,7 @@ C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Presentation\bin\Debug\net8.0\ru\M
 C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Presentation\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Presentation\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Presentation\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Presentation\bin\Debug\net8.0\DotEnv.dll
-C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Presentation\bin\Debug\net8.0\System.IO.Abstractions.dll
 C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Presentation\bin\Debug\net8.0\WorkflowCore.Persistence.EntityFramework.dll
 C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Presentation\bin\Debug\net8.0\WorkflowCore.Persistence.PostgreSQL.dll
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Presentation\bin\Debug\net8.0\Workflows.dll
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Presentation\bin\Debug\net8.0\Workflows.pdb

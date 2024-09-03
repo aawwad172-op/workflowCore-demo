@@ -1,7 +1,7 @@
 using WorkflowCore.Interface;
 using WorkflowCore.Models;
 
-namespace Domain.LeaveSteps
+namespace Workflows.LeaveSteps
 {
     /// <summary>
     /// Represents a step in the leave request workflow that handles waiting for an approval decision.
@@ -29,7 +29,7 @@ namespace Domain.LeaveSteps
 
             // Return ExecutionResult.Next() to indicate that the step completed successfully
             // and the workflow should proceed to the next step.
-            return ExecutionResult.Next();
+            return ExecutionResult.Persist(context.PersistenceData);
         }
     }
 }

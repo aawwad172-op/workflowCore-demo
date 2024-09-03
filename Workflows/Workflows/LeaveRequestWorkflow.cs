@@ -1,8 +1,8 @@
-using Domain.LeaveSteps;
-using Domain.Models;
+using Workflows.LeaveSteps;
+using Workflows.Models;
 using WorkflowCore.Interface;
 
-namespace Domain.Workflows
+namespace Workflows.Workflows
 {
     /// <summary>
     /// Defines the leave request workflow, which orchestrates the process of handling

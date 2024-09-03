@@ -15,19 +15,6 @@
           }
         }
       },
-      "DotEnv/0.0.1.1": {
-        "type": "package",
-        "dependencies": {
-          "SimpleJson": "0.38.0",
-          "System.IO.Abstractions": "1.4.0.86"
-        },
-        "compile": {
-          "lib/net40/DotEnv.dll": {}
-        },
-        "runtime": {
-          "lib/net40/DotEnv.dll": {}
-        }
-      },
       "DotNetEnv/3.1.1": {
         "type": "package",
         "dependencies": {
@@ -1118,9 +1105,6 @@
           }
         }
       },
-      "SimpleJson/0.38.0": {
-        "type": "package"
-      },
       "Sprache/2.3.1": {
         "type": "package",
         "dependencies": {
@@ -1543,15 +1527,6 @@
           "ref/netstandard1.5/System.IO.dll": {
             "related": ".xml"
           }
-        }
-      },
-      "System.IO.Abstractions/1.4.0.86": {
-        "type": "package",
-        "compile": {
-          "lib/net35/System.IO.Abstractions.dll": {}
-        },
-        "runtime": {
-          "lib/net35/System.IO.Abstractions.dll": {}
         }
       },
       "System.IO.Compression/4.3.0": {
@@ -2650,7 +2625,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "workflowCore": "3.10.0"
+          "Microsoft.Extensions.DependencyInjection": "8.0.0"
         },
         "compile": {
           "bin/placeholder/Domain.dll": {}
@@ -2667,14 +2642,30 @@
           "DotNetEnv": "3.1.1",
           "Microsoft.EntityFrameworkCore": "8.0.8",
           "Microsoft.Extensions.Configuration.Json": "8.0.0",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.4",
-          "dotenv": "0.0.1.1"
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.4"
         },
         "compile": {
           "bin/placeholder/Infrastructure.dll": {}
         },
         "runtime": {
           "bin/placeholder/Infrastructure.dll": {}
+        }
+      },
+      "Workflows/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Domain": "1.0.0",
+          "DotNetEnv": "3.1.1",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.4",
+          "WorkflowCore": "3.10.0",
+          "WorkflowCore.Persistence.PostgreSQL": "3.10.0"
+        },
+        "compile": {
+          "bin/placeholder/Workflows.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Workflows.dll": {}
         }
       }
     }
@@ -2695,18 +2686,6 @@
         "lib/netstandard1.0/ConcurrentCollections.xml",
         "lib/netstandard2.0/ConcurrentCollections.dll",
         "lib/netstandard2.0/ConcurrentCollections.xml"
-      ]
-    },
-    "DotEnv/0.0.1.1": {
-      "sha512": "6Dzbp8/xTWDNqEJBc8vTwdL2Ydelq3NWQFonpfbr8ZnQ8b24oCjhHLb29dZlY3+VoGw0C1ZmM6BOc58u9Hqqfw==",
-      "type": "package",
-      "path": "dotenv/0.0.1.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "dotenv.0.0.1.1.nupkg.sha512",
-        "dotenv.nuspec",
-        "lib/net40/DotEnv.dll"
       ]
     },
     "DotNetEnv/3.1.1": {
@@ -4501,19 +4480,6 @@
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
       ]
     },
-    "SimpleJson/0.38.0": {
-      "sha512": "Qvxm8S8fXa6/U6GLm1CJtDIqFFYKKw8cVaqMA/0I68q2avYZijt1IeEw6Y6PD2u5Hln1WrIR30ZseZOAWI8Ykg==",
-      "type": "package",
-      "path": "simplejson/0.38.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "SimpleJson.psm1",
-        "content/SimpleJson.cs.pp",
-        "simplejson.0.38.0.nupkg.sha512",
-        "simplejson.nuspec"
-      ]
-    },
     "Sprache/2.3.1": {
       "sha512": "Q+mXeiTxiUYG3lKYF6TS82/SyB4F2613Q1yXTMwg4jWGHEEVC3yrzHtNcI4B3qnDI0+eJsezGJ0V+cToUytHWw==",
       "type": "package",
@@ -5506,18 +5472,6 @@
         "ref/xamarinwatchos10/_._",
         "system.io.4.3.0.nupkg.sha512",
         "system.io.nuspec"
-      ]
-    },
-    "System.IO.Abstractions/1.4.0.86": {
-      "sha512": "Qjm6uyJAWR/Ct1Uoy1MLkMRZq8EBWTN/9dcRQVCEPFiEv9IK0LCCt1VkvOpGKcRWllJO0Y1sd9NcqGjkcECz2Q==",
-      "type": "package",
-      "path": "system.io.abstractions/1.4.0.86",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net35/System.IO.Abstractions.dll",
-        "system.io.abstractions.1.4.0.86.nupkg.sha512",
-        "system.io.abstractions.nuspec"
       ]
     },
     "System.IO.Compression/4.3.0": {
@@ -8281,6 +8235,11 @@
       "type": "project",
       "path": "../Infrastructure/Infrastructure.csproj",
       "msbuildProject": "../Infrastructure/Infrastructure.csproj"
+    },
+    "Workflows/1.0.0": {
+      "type": "project",
+      "path": "../Workflows/Workflows.csproj",
+      "msbuildProject": "../Workflows/Workflows.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -8292,6 +8251,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 8.0.8",
       "Swashbuckle.AspNetCore >= 6.4.0",
       "WorkflowCore.Persistence.PostgreSQL >= 3.10.0",
+      "Workflows >= 1.0.0",
       "workflowCore >= 3.10.0"
     ]
   },
@@ -8336,6 +8296,9 @@
             },
             "C:\\Users\\Ahmad-Awwad\\coding\\workflowCore-demo\\Infrastructure\\Infrastructure.csproj": {
               "projectPath": "C:\\Users\\Ahmad-Awwad\\coding\\workflowCore-demo\\Infrastructure\\Infrastructure.csproj"
+            },
+            "C:\\Users\\Ahmad-Awwad\\coding\\workflowCore-demo\\Workflows\\Workflows.csproj": {
+              "projectPath": "C:\\Users\\Ahmad-Awwad\\coding\\workflowCore-demo\\Workflows\\Workflows.csproj"
             }
           }
         }
@@ -8400,27 +8363,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'DotEnv 0.0.1.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
-      "libraryId": "DotEnv",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'System.IO.Abstractions 1.4.0.86' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
-      "libraryId": "System.IO.Abstractions",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  }
 }

@@ -1,7 +1,7 @@
 using WorkflowCore.Interface;
 using WorkflowCore.Models;
 
-namespace Domain.LeaveSteps
+namespace Workflows.LeaveSteps
 {
     /// <summary>
     /// Represents a step in the leave request workflow that is responsible for notifying the employee

@@ -1,6 +1,6 @@
 using System;
 
-namespace Domain.Models
+namespace Workflows.Models
 {
     /// <summary>
     /// Represents the data model used to store state and share information across the steps in the leave request workflow.
@@ -31,8 +31,5 @@ namespace Domain.Models
         /// This property can be used to store notes or feedback from the approver or other relevant information.
         /// </summary>
         public string? Comments { get; set; }
-
-        // Additional properties can be added here to capture more workflow-specific data,
-        // such as the date of the request, the approver's name, or the reason for the leave.
     }
 }

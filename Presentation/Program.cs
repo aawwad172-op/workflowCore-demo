@@ -1,40 +1,29 @@
-using Domain.Models;
-using Domain.Workflows;
+using Workflows.Models;
 using Infrastructure;
 using WorkflowCore.Interface;
-using Domain.Interfaces;
 using DotNetEnv;
-using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using WorkflowCore.Models;
+using Domain;
+using Application;
+using Workflows.Workflows;
+using Workflows;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Load environment variables from the .env file
 Env.Load();
 
-// Get the connection string from the environment variable
-var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
-
-// if (string.IsNullOrEmpty(connectionString))
-// {
-//     throw new InvalidOperationException("The connection string was not found in the environment variables.");
-// }
-
-// Register WorkflowCore services
-builder.Services.AddWorkflow(x => x.UsePostgreSQL(@"Host=localhost;Database=HRS-workflows;Username=postgres;Password=admin;", true, true));
-
-// Register the DbContext with the connection string from the environment
-builder.Services.AddDbContext<LeaveRequestDBContext>(options =>
-    options.UseNpgsql(connectionString));
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Register the repositories
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddInfrastructure()
+                .AddDomain()
+                .AddApplication()
+                .AddWorkflows();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -44,7 +33,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // Retrieve the workflow host from the service provider
-var host = app.Services.GetRequiredService<IWorkflowHost>();
+IWorkflowHost host = app.Services.GetRequiredService<IWorkflowHost>();
 
 // Register the LeaveRequestWorkflow with the workflow host
 host.RegisterWorkflow<LeaveRequestWorkflow, LeaveRequestFlowData>();
@@ -58,19 +47,89 @@ app.MapGet("/hello", () => "Hello World!");
 
 app.MapPost("/workflow-test", async (LeaveRequestFlowData data) =>
 {
-    var workflowId = await host.StartWorkflow("leave-request-workflow", 1, data);
+    string workflowId = await host.StartWorkflow("leave-request-workflow", 1, data);
     return Results.Ok(new { WorkflowId = workflowId });
 });
 
 app.MapPost("/leave-request", ([FromBody] LeaveRequest request) =>
 {
     // Start the workflow with the provided data
-    var workflowId = host.StartWorkflow("leave-request-workflow", 1, new LeaveRequestFlowData
+    string workflowId = host.StartWorkflow("leave-request-workflow", 1, new LeaveRequestFlowData
     {
         // Map your LeaveRequest fields to LeaveRequestFlowData here
     }).Result;
 
     return Results.Ok(new { WorkflowId = workflowId });
 });
+
+app.MapPost("/approve-leave-request", async (LeaveRequestDBContext dbContext, [FromBody] ApprovalLeaveRequest approvalRequest) =>
+{
+    // Fetch the workflow instance
+    WorkflowInstance workflowInstance = await host.PersistenceStore.GetWorkflowInstance(approvalRequest.WorkflowId);
+
+    // Cast the workflow data to LeaveRequestFlowData
+    LeaveRequestFlowData? workflowData = workflowInstance.Data as LeaveRequestFlowData;
+
+    if (workflowData == null)
+    {
+        return Results.BadRequest("Invalid workflow data.");
+    }
+
+    // Update the workflow data to reflect approval
+    workflowData.IsApproved = true;
+
+    // Create a new Approval record
+    Approval approval = new Approval
+    {
+        ApprovalId = Guid.NewGuid(),
+        LeaveRequestId = Guid.Parse(approvalRequest.WorkflowId),
+        ManagerId = approvalRequest.ManagerId,
+        Date = DateTime.UtcNow,
+        Decision = "Approved",
+        Comments = null
+    };
+
+    // Add the approval to the database
+    await dbContext.Approvals.AddAsync(approval);
+    await dbContext.SaveChangesAsync();
+
+    // Resume the workflow
+    await host.PublishEvent("ApprovalEvent", approvalRequest.WorkflowId, workflowInstance.Data);
+
+    return Results.Ok("Leave request approved.");
+});
+
+app.MapPost("/cancel-leave-request", async (LeaveRequestDBContext dbContext, IWorkflowHost host, [FromBody] CancelLeaveRequest cancelRequest) =>
+{
+    // Fetch the workflow instance
+    WorkflowInstance workflowInstance = await host.PersistenceStore.GetWorkflowInstance(cancelRequest.WorkflowId);
+
+    if (workflowInstance == null)
+    {
+        return Results.NotFound("Workflow not found");
+    }
+
+    // Cast the workflow data to LeaveRequestFlowData
+    LeaveRequestFlowData? workflowData = workflowInstance.Data as LeaveRequestFlowData;
+
+    if (workflowData == null)
+    {
+        return Results.BadRequest("Invalid workflow data.");
+    }
+
+    // Update the workflow data to reflect cancellation
+    workflowData.Comments = cancelRequest.Reason;
+
+    // Optionally, create a cancellation record or log the cancellation
+    // Here, we assume that cancellations do not need to be separately recorded,
+    // but you can create a similar entity to Approval if needed.
+
+    // Terminate the workflow
+    await host.TerminateWorkflow(cancelRequest.WorkflowId);
+
+    return Results.Ok("Leave request canceled.");
+});
+
+
 
 app.Run();

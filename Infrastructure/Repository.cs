@@ -4,7 +4,6 @@ namespace Infrastructure;
 
 public class Repository<T> : IRepository<T> where T : class
 {
-
     private readonly LeaveRequestDBContext _context;
     private readonly DbSet<T> _dbSet;
 

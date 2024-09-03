@@ -1,7 +1,7 @@
 using WorkflowCore.Interface;
 using WorkflowCore.Models;
 
-namespace Domain.LeaveSteps
+namespace Workflows.LeaveSteps
 {
     /// <summary>
     /// Represents a step in the workflow that processes the approval decision for a leave request.
@@ -31,7 +31,8 @@ namespace Domain.LeaveSteps
             // TODO: Implement logic to handle the decision.
             // If the request is approved, proceed with the next step in the approved workflow path.
             // If the request is rejected, handle the rejection accordingly.
-            // Example: if (IsApproved) { /* proceed with approved workflow */ } else { /* handle rejection */ }
+            if (IsApproved) { }
+            else { /* handle rejection */ }
 
             // Return ExecutionResult.Next() to indicate that the step completed successfully
             // and the workflow should proceed to the next step.

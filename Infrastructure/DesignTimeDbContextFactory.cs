@@ -20,7 +20,7 @@ namespace Infrastructure
             // }
 
             // Create DbContext options
-            var optionsBuilder = new DbContextOptionsBuilder<LeaveRequestDBContext>();
+            DbContextOptionsBuilder<LeaveRequestDBContext> optionsBuilder = new DbContextOptionsBuilder<LeaveRequestDBContext>();
             optionsBuilder.UseNpgsql("Host=localhost;Database=HRS;Username=postgres;Password=admin");
 
             return new LeaveRequestDBContext(optionsBuilder.Options);

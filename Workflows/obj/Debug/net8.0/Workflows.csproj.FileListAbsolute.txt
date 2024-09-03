@@ -1,0 +1,16 @@
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Workflows\obj\Debug\net8.0\Workflows.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Workflows\obj\Debug\net8.0\Workflows.AssemblyInfoInputs.cache
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Workflows\obj\Debug\net8.0\Workflows.AssemblyInfo.cs
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Workflows\obj\Debug\net8.0\Workflows.csproj.CoreCompileInputs.cache
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Workflows\obj\Debug\net8.0\Workflows.sourcelink.json
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Workflows\bin\Debug\net8.0\Workflows.deps.json
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Workflows\bin\Debug\net8.0\Workflows.dll
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Workflows\bin\Debug\net8.0\Workflows.pdb
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Workflows\bin\Debug\net8.0\Domain.dll
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Workflows\bin\Debug\net8.0\Domain.pdb
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Workflows\obj\Debug\net8.0\Workflows.csproj.AssemblyReference.cache
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Workflows\obj\Debug\net8.0\Workflows.csproj.Up2Date
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Workflows\obj\Debug\net8.0\Workflows.dll
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Workflows\obj\Debug\net8.0\refint\Workflows.dll
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Workflows\obj\Debug\net8.0\Workflows.pdb
+C:\Users\Ahmad-Awwad\coding\workflowCore-demo\Workflows\obj\Debug\net8.0\ref\Workflows.dll

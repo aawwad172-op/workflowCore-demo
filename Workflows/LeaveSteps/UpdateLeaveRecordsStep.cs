@@ -1,7 +1,7 @@
 using WorkflowCore.Interface;
 using WorkflowCore.Models;
 
-namespace Domain.LeaveSteps
+namespace Workflows.LeaveSteps
 {
     /// <summary>
     /// Represents a step in the workflow that updates the leave records after a leave request has been processed.
